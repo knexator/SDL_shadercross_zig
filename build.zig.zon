@@ -1,0 +1,27 @@
+.{
+    .name = "SDL_shadercross_zig",
+    .version = "0.0.0",
+    .dependencies = .{
+        .SDL_shadercross = .{
+            .url = "git+https://github.com/libsdl-org/SDL_shadercross#3e8b32b4af2fd2ba9329bd671823cbe68f9ece98",
+            .hash = "1220d7cf9dc27dad6f1c104611a70599b6c7473c1cdef97fce586a59105ec8fb5cf6",
+        },
+        .@"SPIRV-Cross_zig" = .{
+            .url = "git+https://github.com/Beyley/SPIRV-Cross_zig#b44a0329f59de00799505a8f648d274b6dd80fdd",
+            .hash = "122097621c0fee5ebb26930fe67f8947cde7e7ba21a67e7770f1a6fba55c57e4b3fc",
+        },
+        .mach_dxcompiler = .{
+            .url = "git+https://github.com/Beyley/mach-dxcompiler#394ebe617f08fa70e1ae23a4f03617b425d4e36e",
+            .hash = "12201808ba2a531f89746a92e106cc1dba20015d24ddb621b4372b295a07583f0b25",
+            .lazy = true,
+        },
+        .@"SPIRV-Headers" = .{
+            .url = "https://github.com/KhronosGroup/SPIRV-Headers/archive/1bfd27101e4578d0284061bdf8f09fb4755c7c2d.tar.gz",
+            .hash = "122082a1487ea8e9185c6bea2850a53f376279d62bb06158cd357dbecb0fd02219ac",
+        },
+    },
+    .paths = .{
+        "build.zig",
+        "build.zig.zon",
+    },
+}
