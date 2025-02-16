@@ -11,8 +11,8 @@
             .hash = "122097621c0fee5ebb26930fe67f8947cde7e7ba21a67e7770f1a6fba55c57e4b3fc",
         },
         .mach_dxcompiler = .{
-            .url = "git+https://github.com/Beyley/mach-dxcompiler#394ebe617f08fa70e1ae23a4f03617b425d4e36e",
-            .hash = "12201808ba2a531f89746a92e106cc1dba20015d24ddb621b4372b295a07583f0b25",
+            .url = "git+https://github.com/knexator/mach-dxcompiler.git#9e5ce30f59705f3f8a8eddf5917587210082e2f5",
+            .hash = "122012d587a02b7425e2f269f227bfe3917b550ca3df762208218d240619da7f4054",
             .lazy = true,
         },
         .@"SPIRV-Headers" = .{

@@ -61,7 +61,7 @@ pub fn build(b: *std.Build) !void {
             .shared = dxc_shared,
         })) |dxcompiler| {
             SDL_shadercross.linkLibrary(dxcompiler.artifact("machdxcompiler"));
-            SDL_shadercross.defineCMacro("SDL_SHADERCROSS_DXC", "1");
+            SDL_shadercross.root_module.addCMacro("SDL_SHADERCROSS_DXC", "1");
         };
 
     SDL_shadercross.addIncludePath(upstream.path("include"));
