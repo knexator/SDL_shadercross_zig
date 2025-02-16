@@ -17,10 +17,11 @@ pub fn build(b: *std.Build) !void {
     const spirv_cross_shared = b.option(bool, "spirvcross_shared", "Whether to link against SPIRV-Cross as a shared library") orelse false;
     const cli = b.option(bool, "cli", "Whether to build the CLI") orelse true;
 
-    const sdl_lib_dir = b.option([]const u8, "sdl_lib_dir", "The directory which contains the SDL3 lib to link against");
-    const sdl_inc_dir = b.option([]const u8, "sdl_include_dir", "The directory which contains the SDL3 headers to compile against");
-
-    const disable_pkg_config = b.option(bool, "disable_pkg_config", "Whether to disable pkg-config support when linking libraries") orelse false;
+    const sdl_dep = b.dependency("sdl", .{
+        .target = target,
+        .optimize = optimize,
+    });
+    const sdl_lib = sdl_dep.artifact("SDL3");
 
     const upstream = b.dependency("SDL_shadercross", .{});
     const spirv_headers = b.dependency("SPIRV-Headers", .{});
@@ -38,7 +39,7 @@ pub fn build(b: *std.Build) !void {
     });
     SDL_shadercross.linkLibC();
 
-    linkSdl(SDL_shadercross, sdl_inc_dir, sdl_lib_dir, shared, disable_pkg_config);
+    SDL_shadercross.linkLibrary(sdl_lib);
 
     const spirv_cross = b.dependency("SPIRV-Cross_zig", .{
         .target = target,
@@ -84,25 +85,8 @@ pub fn build(b: *std.Build) !void {
         });
         exe.addCSourceFile(.{ .file = upstream.path("src/cli.c") });
         exe.linkLibrary(SDL_shadercross);
-        linkSdl(exe, sdl_inc_dir, sdl_lib_dir, true, disable_pkg_config);
+        exe.linkLibrary(sdl_lib);
 
         b.installArtifact(exe);
     }
-}
-
-fn linkSdl(
-    step: *std.Build.Step.Compile,
-    sdl_inc_dir: ?[]const u8,
-    sdl_lib_dir: ?[]const u8,
-    shared: bool,
-    disable_pkg_config: bool,
-) void {
-    if (sdl_inc_dir) |sdl_inc_dir_path| step.addIncludePath(.{ .cwd_relative = sdl_inc_dir_path });
-    if (sdl_lib_dir) |sdl_lib_dir_path| step.addLibraryPath(.{ .cwd_relative = sdl_lib_dir_path });
-
-    if (shared)
-        step.linkSystemLibrary2("SDL3", .{
-            .preferred_link_mode = .dynamic,
-            .use_pkg_config = if (disable_pkg_config) .no else .yes,
-        });
 }

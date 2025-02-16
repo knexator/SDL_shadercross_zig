@@ -2,6 +2,10 @@
     .name = "SDL_shadercross_zig",
     .version = "0.0.0",
     .dependencies = .{
+        .sdl = .{
+            .url = "git+https://github.com/castholm/SDL.git?ref=main#2bb5f57ea8b8c43eabe514f7bbd3361365ba2ff3",
+            .hash = "1220f653f5b656888b522bf5be06fc3062278767cfa7764e5d00eb559056d65b616f",
+        },
         .SDL_shadercross = .{
             .url = "git+https://github.com/libsdl-org/SDL_shadercross#3e8b32b4af2fd2ba9329bd671823cbe68f9ece98",
             .hash = "1220d7cf9dc27dad6f1c104611a70599b6c7473c1cdef97fce586a59105ec8fb5cf6",
